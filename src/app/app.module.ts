@@ -7,12 +7,14 @@ import {EmployeeService} from "./employee.service";
 import {HttpClientModule} from "@angular/common/http";
 import { HeaderComponent } from './components/header/header.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { EmployeeCardComponent } from './components/employee-card/employee-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     DropdownComponent,
+    EmployeeCardComponent,
   ],
   imports: [
     BrowserModule,
