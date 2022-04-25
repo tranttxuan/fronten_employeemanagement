@@ -3,6 +3,10 @@ import {Employee} from "./employee";
 import {EmployeeService} from "./employee.service";
 import {HttpErrorResponse} from "@angular/common/http";
 
+export interface ISelectedDropdown{
+  employeeId: number|undefined,
+  isOpen:boolean
+}
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,10 +14,12 @@ import {HttpErrorResponse} from "@angular/common/http";
 })
 export class AppComponent implements OnInit{
   public employees: Employee[]=[];
-  public openDropdown:boolean=false;
+  public selectedEmployee: ISelectedDropdown={
+    employeeId: undefined,
+    isOpen:false
+  };
   constructor(private employeeService: EmployeeService) {
   }
-
   ngOnInit() {
     this.getEmployees();
   }
@@ -28,8 +34,16 @@ export class AppComponent implements OnInit{
       }
     )
   }
-  handleDropdown(){
-    this.openDropdown = !this.openDropdown;
-    console.log("check --- ", this.openDropdown)
+  handleDropdown(employeeId : number|undefined ){
+    if(this.selectedEmployee.employeeId != employeeId) {
+      this.selectedEmployee.employeeId = employeeId;
+      this.selectedEmployee.isOpen = true;
+    }
+    if(this.selectedEmployee.employeeId == employeeId &&  this.selectedEmployee.isOpen == true) {
+      this.selectedEmployee.isOpen = false;
+    }
+    if(this.selectedEmployee.employeeId == employeeId &&  this.selectedEmployee.isOpen == false) {
+      this.selectedEmployee.isOpen = true;
+    }
   }
 }
