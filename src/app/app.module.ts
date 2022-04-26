@@ -8,6 +8,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { HeaderComponent } from './components/header/header.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { EmployeeCardComponent } from './components/employee-card/employee-card.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { EmployeeCardComponent } from './components/employee-card/employee-card.
     HeaderComponent,
     DropdownComponent,
     EmployeeCardComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

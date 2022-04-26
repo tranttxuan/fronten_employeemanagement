@@ -1,0 +1,13 @@
+<div class="app-modal" >
+  <div
+    class="fixed top-2/4 bottom-auto left-2/4 -translate-x-2/4 -translate-y-2/4 bg-red-50 z-900 w-1/2 overflow-hidden p-8"
+    style="z-index: 1000">
+    <h1 class="font-bold text-lg">Title</h1>
+    <div class="">
+      <ng-content></ng-content>
+    </div>
+  </div>
+  <div (click)="onCloseModal()"
+       class="bg-blue-500 opacity-80 w-screen h-screen fixed top-0 left-0 right-0 bottom-0"
+       style="z-index: 900"></div>
+</div>

@@ -1,10 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Employee} from "../../employee";
-
-export interface ISelectedDropdown{
-  employeeId: number|undefined,
-  isOpen:boolean
-}
+import {ISelectedDropdown} from "../../app.component";
 
 @Component({
   selector: 'app-dropdown',
@@ -13,13 +9,15 @@ export interface ISelectedDropdown{
 })
 export class DropdownComponent implements OnInit {
   @Input() public employee: Employee | undefined;
-  @Input() public selectedEmployee: ISelectedDropdown={
+  @Input() public selectedEmployee: ISelectedDropdown = {
     employeeId: undefined,
-    isOpen:false
+    isOpen: false
   };
-  @Input() public handleDropdown: (param: number|undefined) => void;
+  @Input() public handleDropdown: (param: number | undefined) => void;
+  @Input() public onOpenModal: (employee: Employee | undefined, mode: string) => void;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

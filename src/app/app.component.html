@@ -1,5 +1,6 @@
-<app-header></app-header>
+<app-header [onOpenModal]="onOpenModal"></app-header>
 <div
+  id="main-container"
   class="container m-auto mt-10 justify-center grid grid-flow-row grid-cols-1 sm:gap-7 sm:grid-cols-2 lg:grid-cols-4">
   <div *ngFor="let employee of employees">
     <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md p-2 overflow-hidden">
@@ -7,10 +8,13 @@
       <app-dropdown [selectedEmployee]="selectedEmployee"
                     [employee]="employee"
                     [handleDropdown]="handleDropdown"
+                    [onOpenModal]="onOpenModal"
       ></app-dropdown>
 
       <app-employee-card [employee]="employee"></app-employee-card>
-
     </div>
   </div>
 </div>
+<app-modal id="add-modal-template">
+  add
+</app-modal>

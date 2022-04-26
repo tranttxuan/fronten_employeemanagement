@@ -2,24 +2,31 @@ import {Component, OnInit} from '@angular/core';
 import {Employee} from "./employee";
 import {EmployeeService} from "./employee.service";
 import {HttpErrorResponse} from "@angular/common/http";
+import {ModalService} from "./components/modal/modal.service";
 
-export interface ISelectedDropdown{
-  employeeId: number|undefined,
-  isOpen:boolean
+export interface ISelectedDropdown {
+  employeeId: number | undefined,
+  isOpen: boolean
 }
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
-  public employees: Employee[]=[];
-  public selectedEmployee: ISelectedDropdown={
+export class AppComponent implements OnInit {
+  public employees: Employee[] = [];
+  public selectedEmployee: ISelectedDropdown = {
     employeeId: undefined,
-    isOpen:false
+    isOpen: false
   };
-  constructor(private employeeService: EmployeeService) {
+
+  public modalMode:string="";
+
+  constructor(private employeeService: EmployeeService,
+              private modalService: ModalService) {
   }
+
   ngOnInit() {
     this.getEmployees();
   }
@@ -34,16 +41,22 @@ export class AppComponent implements OnInit{
       }
     )
   }
-  handleDropdown(employeeId : number|undefined ){
-    if(this.selectedEmployee.employeeId != employeeId) {
+
+  handleDropdown(employeeId: number | undefined) {
+    if (this.selectedEmployee.employeeId != employeeId) {
       this.selectedEmployee.employeeId = employeeId;
       this.selectedEmployee.isOpen = true;
     }
-    if(this.selectedEmployee.employeeId == employeeId &&  this.selectedEmployee.isOpen == true) {
+    if (this.selectedEmployee.employeeId == employeeId && this.selectedEmployee.isOpen == true) {
       this.selectedEmployee.isOpen = false;
     }
-    if(this.selectedEmployee.employeeId == employeeId &&  this.selectedEmployee.isOpen == false) {
+    if (this.selectedEmployee.employeeId == employeeId && this.selectedEmployee.isOpen == false) {
       this.selectedEmployee.isOpen = true;
     }
+  }
+
+  onOpenModal(employee: Employee | undefined, id: string) {
+    console.log('type of modal --- ',id)
+    this.modalService.open(id);
   }
 }
