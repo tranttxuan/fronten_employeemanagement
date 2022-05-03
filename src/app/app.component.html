@@ -17,7 +17,39 @@
 </div>
 
 <app-modal [id]="this.addNewEmployeeModalType">
-  add
+  <form (ngSubmit)="onAddEmployee(addForm)" #addForm="ngForm" class="flex flex-col space-y-4">
+    <div class="flex flex-col">
+      <label for="name">Name</label>
+      <input ngModel type="text" name="name" id="name" placeholder="Enter Name" required>
+    </div>
+    <div class="flex flex-col">
+      <label for="email">Email</label>
+      <input ngModel type="text" name="email" id="email" placeholder="Enter Email" required>
+    </div>
+    <div class="flex flex-col">
+      <label for="jobTitle">Job title</label>
+      <input ngModel type="text" name="jobTitle" id="jobTitle" placeholder="Enter Job Title" required>
+    </div>
+    <div class="flex flex-col">
+      <label for="phone">Phone</label>
+      <input ngModel type="text" name="phone" id="phone" placeholder="Enter Phone" required>
+    </div>
+    <div class="flex flex-col">
+      <label for="imageUrl">Image Url</label>
+      <input ngModel type="text" name="imageUrl" id="imageUrl" placeholder="Enter Image Url" required>
+    </div>
+    <div class="flex justify-end">
+      <button type="button"
+              class="py-2.5 px-5 mr-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-500 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200">
+        Close
+      </button>
+
+      <button [disabled]="addForm.invalid" type="submit"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">
+        Save changes
+      </button>
+    </div>
+  </form>
 </app-modal>
 <app-modal [id]="this.deleteModalType">
   delete
