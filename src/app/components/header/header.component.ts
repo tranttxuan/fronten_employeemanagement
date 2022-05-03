@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ModalService} from "../../services/modal.service";
+import {IOpenModalEvent, ModalType} from "../../model/modal";
 
 @Component({
   selector: 'app-header',
@@ -6,12 +8,17 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  @Input() public modalService: ModalService;
+  @Output() openModalEvent = new EventEmitter<IOpenModalEvent>();
 
-  @Input() public onOpenModal: (employee: undefined, mode: string) => void;
-
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
+  openModal() {
+    this.openModalEvent.emit({employee: undefined, id: ModalType.ADD_NEW_EMPLOYEE_MODAL});
+  }
 }
+

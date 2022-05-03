@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {ModalType} from "../model/modal";
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +13,16 @@ export class ModalService {
     this.modals.push(modal);
   }
 
-  remove(id: string) {
-    // remove modal from array of active modals
+  remove(id: ModalType) {
     this.modals = this.modals.filter(x => x.id !== id);
   }
 
-  open(id: string) {
+  open(id: ModalType) {
     const modal = this.modals.find(x => x.id === id);
     modal.open();
   }
 
-  close(id: string) {
+  close(id: ModalType) {
     const modal = this.modals.find(x => x.id === id);
     modal.close();
   }

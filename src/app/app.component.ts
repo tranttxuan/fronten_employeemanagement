@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Employee} from "./employee";
-import {EmployeeService} from "./employee.service";
+import {Employee} from "./model/employee";
+import {EmployeeService} from "./services/employee.service";
 import {HttpErrorResponse} from "@angular/common/http";
-import {ModalService} from "./components/modal/modal.service";
+import {ModalService} from "./services/modal.service";
+import {ModalType} from "./model/modal";
 
 export interface ISelectedDropdown {
   employeeId: number | undefined,
@@ -16,15 +17,19 @@ export interface ISelectedDropdown {
 })
 export class AppComponent implements OnInit {
   public employees: Employee[] = [];
+
   public selectedEmployee: ISelectedDropdown = {
     employeeId: undefined,
     isOpen: false
   };
 
-  public modalMode:string="";
+  public addNewEmployeeModalType = ModalType.ADD_NEW_EMPLOYEE_MODAL;
+  public deleteModalType = ModalType.DELETE_EMPLOYEE_MODAL;
+  public editModalType = ModalType.EDIT_EMPLOYEE_MODAL;
 
-  constructor(private employeeService: EmployeeService,
-              private modalService: ModalService) {
+
+  constructor(public employeeService: EmployeeService,
+              public modalService: ModalService) {
   }
 
   ngOnInit() {
@@ -55,8 +60,8 @@ export class AppComponent implements OnInit {
     }
   }
 
-  onOpenModal(employee: Employee | undefined, id: string) {
-    console.log('type of modal --- ',id)
-    this.modalService.open(id);
+  onOpenModal(event:any) {
+    this.modalService.open(event.id);
   }
+
 }
