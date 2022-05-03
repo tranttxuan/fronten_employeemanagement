@@ -9,7 +9,8 @@ import {HeaderComponent} from './components/header/header.component';
 import {DropdownComponent} from './components/dropdown/dropdown.component';
 import {EmployeeCardComponent} from './components/employee-card/employee-card.component';
 import {ModalComponent} from './components/modal/modal.component';
-import {FormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from "@angular/forms";
+import { EmployeeFormComponent } from './components/form/employee-form/employee-form.component';
 
 @NgModule({
   declarations: [
@@ -18,11 +19,12 @@ import {FormsModule} from "@angular/forms";
     DropdownComponent,
     EmployeeCardComponent,
     ModalComponent,
+    EmployeeFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule, HttpClientModule,
-    FormsModule
+    ReactiveFormsModule,
   ],
   providers: [EmployeeService],
   bootstrap: [AppComponent]
