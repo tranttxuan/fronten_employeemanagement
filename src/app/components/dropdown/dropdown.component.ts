@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Employee} from "../../employee";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Employee} from "../../model/employee";
 import {ISelectedDropdown} from "../../app.component";
+import {IOpenModalEvent, ModalType} from "../../model/modal";
 
 @Component({
   selector: 'app-dropdown',
@@ -14,7 +15,11 @@ export class DropdownComponent implements OnInit {
     isOpen: false
   };
   @Input() public handleDropdown: (param: number | undefined) => void;
-  @Input() public onOpenModal: (employee: Employee | undefined, mode: string) => void;
+
+  @Output()  openModalEvent = new EventEmitter<IOpenModalEvent> ();
+
+  public deleteModalType = ModalType.DELETE_EMPLOYEE;
+  public editModalType = ModalType.EDIT_EMPLOYEE;
 
   constructor() {
   }
@@ -22,4 +27,8 @@ export class DropdownComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onOpenModal (employee: Employee | undefined, idModal: ModalType){
+    this.openModalEvent.emit({employee: employee, id:idModal});
+  }
 }
+

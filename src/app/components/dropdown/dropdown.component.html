@@ -14,12 +14,12 @@
     <ul class="py-1">
       <li>
         <button
-          (click)="onOpenModal(employee, 'add-modal-template')"
+          (click)="onOpenModal(employee, this.editModalType)"
            class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600">Edit</button>
       </li>
       <li>
         <button
-          (click)="onOpenModal(employee, 'add-modal-template')"
+          (click)="onOpenModal(employee, this.deleteModalType)"
           class="block py-2 px-4 text-sm text-red-600 hover:bg-gray-100">Delete</button>
       </li>
     </ul>

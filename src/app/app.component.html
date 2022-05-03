@@ -1,4 +1,4 @@
-<app-header [onOpenModal]="onOpenModal"></app-header>
+<app-header (openModalEvent)="onOpenModal( $event)" [modalService]="this.modalService"></app-header>
 <div
   id="main-container"
   class="container m-auto mt-10 justify-center grid grid-flow-row grid-cols-1 sm:gap-7 sm:grid-cols-2 lg:grid-cols-4">
@@ -8,13 +8,20 @@
       <app-dropdown [selectedEmployee]="selectedEmployee"
                     [employee]="employee"
                     [handleDropdown]="handleDropdown"
-                    [onOpenModal]="onOpenModal"
+                    (openModalEvent)="onOpenModal($event)"
       ></app-dropdown>
 
       <app-employee-card [employee]="employee"></app-employee-card>
     </div>
   </div>
 </div>
-<app-modal id="add-modal-template">
+
+<app-modal [id]="this.addNewEmployeeModalType">
   add
+</app-modal>
+<app-modal [id]="this.deleteModalType">
+  delete
+</app-modal>
+<app-modal [id]="this.editModalType">
+  edit
 </app-modal>
