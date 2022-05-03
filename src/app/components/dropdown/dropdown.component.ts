@@ -17,6 +17,7 @@ export class DropdownComponent implements OnInit {
   @Input() public handleDropdown: (param: number | undefined) => void;
 
   @Output()  openModalEvent = new EventEmitter<IOpenModalEvent> ();
+  @Output() deleteEmployeeEvent = new EventEmitter<Employee>();
 
   public deleteModalType = ModalType.DELETE_EMPLOYEE;
   public editModalType = ModalType.EDIT_EMPLOYEE;
@@ -29,6 +30,10 @@ export class DropdownComponent implements OnInit {
 
   onOpenModal (employee: Employee | undefined, idModal: ModalType){
     this.openModalEvent.emit({employee: employee, id:idModal});
+  }
+
+  deleteEmployee(employee: Employee | undefined){
+    this.deleteEmployeeEvent.emit(employee);
   }
 }
 
