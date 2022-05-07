@@ -18,7 +18,7 @@ export interface ISelectedDropdown {
 })
 export class AppComponent implements OnInit {
   public employees: Employee[] = [];
-  public isNoEmployee:boolean=false;
+
   public selectedEmployee: ISelectedDropdown = {
     employeeId: undefined,
     isOpen: false
@@ -26,8 +26,10 @@ export class AppComponent implements OnInit {
 
   public addNewEmployeeModalType = ModalType.ADD_NEW_EMPLOYEE;
   public editModalType = ModalType.EDIT_EMPLOYEE;
+  public deleteModalType = ModalType.DELETE_EMPLOYEE;
 
   public formData: FormGroup;
+  public currentEmployee : Employee;
 
   constructor(public employeeService: EmployeeService,
               public modalService: ModalService) {
@@ -41,20 +43,14 @@ export class AppComponent implements OnInit {
   public getEmployees(): void {
     this.employeeService.getEmployees().subscribe(
       (response: Employee[]) => {
-        if(response.length > 0){
           response.map((employee) => employee.imageUrl.length == 0 && {
             ...employee,
             imageUrl: "https://www.pngall.com/wp-content/uploads/12/Avatar-PNG-Image.png"
           });
-          this.isNoEmployee = false;
           this.employees = response;
-        }else{
-          this.isNoEmployee = true;
-        }
       },
       (error: HttpErrorResponse) => {
         alert(error.message)
-        this.isNoEmployee = true;
       }
     )
   }
@@ -80,6 +76,9 @@ export class AppComponent implements OnInit {
     if (event.id == ModalType.EDIT_EMPLOYEE && event.employee) {
       const {name, email, jobTitle, id, imageUrl, phone, employeeCode} = event.employee;
       this.formData = this.initialiseForm(event.employee);
+    }
+    if (event.id == ModalType.DELETE_EMPLOYEE && event.employee) {
+      this.currentEmployee = event.employee;
     }
   }
 
@@ -117,7 +116,12 @@ export class AppComponent implements OnInit {
           alert(error.message)
         }
       )
+      this.modalService.close(this.deleteModalType);
     }
+  }
+
+  closeModal(modalType: ModalType){
+    this.modalService.close(modalType);
   }
 
   private initialiseForm(employee: Employee | undefined): FormGroup {
