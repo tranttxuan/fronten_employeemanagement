@@ -22,7 +22,7 @@ export class ModalComponent implements OnInit {
       console.error('modal must have an id');
       return;
     }
-    this.title = ModalType[this.id];
+    this.title = ModalType[this.id].toString().replace(/_/g, ' ');
 
     document.body.appendChild(this.element);
 

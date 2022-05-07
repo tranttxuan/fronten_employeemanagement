@@ -1,6 +1,6 @@
 <div class="flex justify-end px-4 pt-4 relative">
   <button (click)="handleDropdown(employee?.id)"
-          class="inline-block text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5"
+          class="inline-block text-gray-500 hover:bg-gray-100 rounded-lg text-sm p-1.5 focus:border-1 focus:outline-none focus:ring-blue-900 focus:ring-1 focus:ring-offset-4 focus:ring-offset-white"
           type="button">
     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -10,17 +10,23 @@
   <div id="dropdown"
        (click)="selectedEmployee.isOpen=false"
        [ngClass]="selectedEmployee.isOpen == true && selectedEmployee.employeeId == employee?.id ?'block': 'hidden'"
-       class="block z-10 w-20 text-base list-none bg-white rounded divide-y divide-gray-100 shadow absolute bottom-auto top-full mt-2">
+       class="block z-10 w-21 text-base list-none bg-white rounded divide-y divide-gray-100 shadow absolute bottom-auto top-full mt-2">
     <ul class="py-1">
       <li>
         <button
           (click)="onOpenModal(employee, this.editModalType)"
-           class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600">Edit</button>
+           class="w-full py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 flex justify-start items-center">
+          <span class="material-icons text-base mr-0.5">edit</span>
+          <span>Edit</span>
+        </button>
       </li>
       <li>
         <button
           (click)="deleteEmployee(employee)"
-          class="block py-2 px-4 text-sm text-red-600 hover:bg-gray-100">Delete</button>
+          class="w-full py-2 px-4 text-sm text-red-600 hover:bg-gray-100 flex justify-start items-center">
+          <span class="material-icons text-base mr-0.5">delete</span>
+          <span>Delete</span>
+        </button>
       </li>
     </ul>
   </div>

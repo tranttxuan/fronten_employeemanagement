@@ -1,7 +1,7 @@
 <app-header (openModalEvent)="onOpenModal( $event)" [modalService]="this.modalService"></app-header>
 <div
   id="main-container"
-  class="container m-auto mt-10 justify-center grid grid-flow-row grid-cols-1 sm:gap-7 sm:grid-cols-2 lg:grid-cols-4">
+  class="container mx-2 sm:m-auto mt-10 justify-center grid grid-flow-row grid-cols-1 sm:gap-7 sm:grid-cols-2 lg:grid-cols-4">
   <div *ngFor="let employee of employees">
     <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md p-2 overflow-hidden">
 
@@ -15,6 +15,10 @@
       <app-employee-card [employee]="employee"></app-employee-card>
     </div>
   </div>
+</div>
+<div class="my-10 py-8 px-2 sm:px-8 bg-cyan-50 text-cyan-900" [style.display]="isNoEmployee?'block':'none'">
+  <h1 class="font-bold text-xl">No Employee</h1>
+  <p>No Employees has not found</p>
 </div>
 
 <app-modal [id]="this.addNewEmployeeModalType">

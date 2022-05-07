@@ -18,14 +18,13 @@ export interface ISelectedDropdown {
 })
 export class AppComponent implements OnInit {
   public employees: Employee[] = [];
-
+  public isNoEmployee:boolean=false;
   public selectedEmployee: ISelectedDropdown = {
     employeeId: undefined,
     isOpen: false
   };
 
   public addNewEmployeeModalType = ModalType.ADD_NEW_EMPLOYEE;
-  public deleteModalType = ModalType.DELETE_EMPLOYEE;
   public editModalType = ModalType.EDIT_EMPLOYEE;
 
   public formData: FormGroup;
@@ -36,22 +35,26 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.getEmployees();
-    this.formData = new FormGroup({
-      name: new FormControl(""),
-      email: new FormControl(""),
-      jobTitle: new FormControl(""),
-      phone: new FormControl(""),
-      imageUrl: new FormControl(""),
-    })
+    this.formData = this.initialiseForm(undefined);
   }
 
   public getEmployees(): void {
     this.employeeService.getEmployees().subscribe(
       (response: Employee[]) => {
-        this.employees = response;
+        if(response.length > 0){
+          response.map((employee) => employee.imageUrl.length == 0 && {
+            ...employee,
+            imageUrl: "https://www.pngall.com/wp-content/uploads/12/Avatar-PNG-Image.png"
+          });
+          this.isNoEmployee = false;
+          this.employees = response;
+        }else{
+          this.isNoEmployee = true;
+        }
       },
       (error: HttpErrorResponse) => {
         alert(error.message)
+        this.isNoEmployee = true;
       }
     )
   }
@@ -71,17 +74,12 @@ export class AppComponent implements OnInit {
 
   onOpenModal(event: IOpenModalEvent): void {
     this.modalService.open(event.id);
-    if(event.id == ModalType.EDIT_EMPLOYEE && event.employee){
+    if (event.id == ModalType.ADD_NEW_EMPLOYEE && event.employee) {
+      this.formData = this.initialiseForm(undefined);
+    }
+    if (event.id == ModalType.EDIT_EMPLOYEE && event.employee) {
       const {name, email, jobTitle, id, imageUrl, phone, employeeCode} = event.employee;
-      this.formData = new FormGroup({
-        id: new FormControl(id),
-        employeeCode: new FormControl(employeeCode),
-        name: new FormControl(name),
-        email: new FormControl(email),
-        jobTitle: new FormControl(jobTitle),
-        phone: new FormControl(phone),
-        imageUrl: new FormControl(imageUrl),
-      })
+      this.formData = this.initialiseForm(event.employee);
     }
   }
 
@@ -109,8 +107,8 @@ export class AppComponent implements OnInit {
     )
   }
 
-  deleteEmployee(employee:Employee){
-    if(employee.id) {
+  deleteEmployee(employee: Employee) {
+    if (employee.id) {
       this.employeeService.deleteEmployee(employee.id).subscribe(
         (response: any) => {
           this.getEmployees();
@@ -120,5 +118,17 @@ export class AppComponent implements OnInit {
         }
       )
     }
+  }
+
+  private initialiseForm(employee: Employee | undefined): FormGroup {
+    return new FormGroup({
+      id: new FormControl(employee?.id || ""),
+      employeeCode: new FormControl(employee?.employeeCode || ""),
+      name: new FormControl(employee?.name || ""),
+      email: new FormControl(employee?.email || ""),
+      jobTitle: new FormControl(employee?.jobTitle || ""),
+      phone: new FormControl(employee?.phone || ""),
+      imageUrl: new FormControl(employee?.imageUrl || ""),
+    })
   }
 }
