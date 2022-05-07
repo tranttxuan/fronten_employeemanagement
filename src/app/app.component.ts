@@ -26,8 +26,10 @@ export class AppComponent implements OnInit {
 
   public addNewEmployeeModalType = ModalType.ADD_NEW_EMPLOYEE;
   public editModalType = ModalType.EDIT_EMPLOYEE;
+  public deleteModalType = ModalType.DELETE_EMPLOYEE;
 
   public formData: FormGroup;
+  public currentEmployee : Employee;
 
   constructor(public employeeService: EmployeeService,
               public modalService: ModalService) {
@@ -81,6 +83,9 @@ export class AppComponent implements OnInit {
       const {name, email, jobTitle, id, imageUrl, phone, employeeCode} = event.employee;
       this.formData = this.initialiseForm(event.employee);
     }
+    if (event.id == ModalType.DELETE_EMPLOYEE && event.employee) {
+      this.currentEmployee = event.employee;
+    }
   }
 
   onAddEmployee(data: any): void {
@@ -117,7 +122,12 @@ export class AppComponent implements OnInit {
           alert(error.message)
         }
       )
+      this.modalService.close(this.deleteModalType);
     }
+  }
+
+  closeModal(modalType: ModalType){
+    this.modalService.close(modalType);
   }
 
   private initialiseForm(employee: Employee | undefined): FormGroup {
