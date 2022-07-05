@@ -1,4 +1,4 @@
-<app-header (openModalEvent)="onOpenModal( $event)" [modalService]="this.modalService"></app-header>
+<app-header (openModalEvent)="onOpenModal($event)" [modalService]="this.modalService" (searchEmployee)="onSearchEmployee($event)"></app-header>
 <div
   id="main-container"
   class="container mx-2 sm:m-auto mt-10 justify-center grid grid-flow-row grid-cols-1 sm:gap-7 sm:grid-cols-2 lg:grid-cols-4">
@@ -39,4 +39,3 @@
     </div>
   </div>
 </app-modal>
-

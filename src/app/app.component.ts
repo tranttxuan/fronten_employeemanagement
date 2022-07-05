@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
   public deleteModalType = ModalType.DELETE_EMPLOYEE;
 
   public formData: FormGroup;
-  public currentEmployee : Employee;
+  public currentEmployee: Employee;
 
   constructor(public employeeService: EmployeeService,
               public modalService: ModalService) {
@@ -43,16 +43,30 @@ export class AppComponent implements OnInit {
   public getEmployees(): void {
     this.employeeService.getEmployees().subscribe(
       (response: Employee[]) => {
-          response.map((employee) => employee.imageUrl.length == 0 && {
-            ...employee,
-            imageUrl: "https://www.pngall.com/wp-content/uploads/12/Avatar-PNG-Image.png"
-          });
-          this.employees = response;
+        response.map((employee) => employee.imageUrl.length == 0 && {
+          ...employee,
+          imageUrl: "https://www.pngall.com/wp-content/uploads/12/Avatar-PNG-Image.png"
+        });
+        this.employees = response;
       },
       (error: HttpErrorResponse) => {
         alert(error.message)
       }
     )
+  }
+
+  public onSearchEmployee(key: string): void {
+    key = key.toLocaleLowerCase();
+    let results: Employee[] = [...this.employees].filter(employee => employee.name.toLocaleLowerCase().includes(key)
+      || employee.imageUrl.toLocaleLowerCase().includes(key)
+      || employee.email.toLocaleLowerCase().includes(key)
+      || employee.jobTitle.toLocaleLowerCase().includes(key)
+      || employee.phone.toLocaleLowerCase().includes(key)
+    );
+    this.employees = results;
+    if(results.length === 0 || !key){
+      this.getEmployees();
+    }
   }
 
   handleDropdown(employeeId: number | undefined) {
@@ -120,7 +134,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  closeModal(modalType: ModalType){
+  closeModal(modalType: ModalType) {
     this.modalService.close(modalType);
   }
 

@@ -11,9 +11,10 @@
       </button>
     </div>
     <div class="ml-auto">
-      <input type="email" id="email"
-             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:outline-none block w-full p-2.5"
-             placeholder="Search employees" required>
+        <input type="search" id="search"
+               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:outline-none block w-full p-2.5"
+               placeholder="Search employees"
+               (input)="searchEmployees($event)">
     </div>
   </div>
 </div>
